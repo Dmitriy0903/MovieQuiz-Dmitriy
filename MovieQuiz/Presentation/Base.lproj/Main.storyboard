@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="YS Display-Bold.ttf">
+            <string>YSDisplay-Bold</string>
+        </array>
+        <array key="YS Display-Medium.ttf">
+            <string>YSDisplay-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Movie Quiz View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -17,13 +25,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVm-rb-gtL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVm-rb-gtL">
                                 <rect key="frame" x="20" y="724" width="158" height="60"/>
                                 <color key="backgroundColor" name="ypWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="ey2-j4-XaH"/>
+                                    <constraint firstAttribute="height" constant="60" id="MkS-do-2Mb"/>
+                                    <constraint firstAttribute="width" constant="158" id="iLe-eP-dd7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Да">
                                     <color key="titleColor" name="ypBlack"/>
@@ -34,13 +43,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6H-LY-kkl">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6H-LY-kkl">
                                 <rect key="frame" x="215" y="724" width="158" height="60"/>
                                 <color key="backgroundColor" name="ypWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="PkI-7P-Oog"/>
+                                    <constraint firstAttribute="height" constant="60" id="0xQ-DR-CX2"/>
+                                    <constraint firstAttribute="width" constant="158" id="Crr-my-z9l"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Нет">
                                     <color key="titleColor" name="ypBlack"/>
@@ -51,15 +61,59 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Zs-Ms-Huq">
+                                <rect key="frame" x="71" y="635" width="251" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="fke-rJ-5ZX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
+                                <color key="textColor" name="ypWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="Dex-ny-4YV">
+                                <rect key="frame" x="20" y="113" width="353" height="502"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="502" id="jnR-SL-ZZM"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вопрос:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhJ-Z9-enh">
+                                <rect key="frame" x="20" y="69" width="74" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="74" id="J21-xc-0zK"/>
+                                    <constraint firstAttribute="height" constant="24" id="PVl-0M-ZQQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
+                                <color key="textColor" name="ypWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0m-Fm-oNt">
+                                <rect key="frame" x="299" y="69" width="74" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="Gdy-wj-JOy"/>
+                                    <constraint firstAttribute="width" constant="74" id="ugp-jB-y4s"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
+                                <color key="textColor" name="ypWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="ypBlack"/>
                         <constraints>
-                            <constraint firstItem="OVm-rb-gtL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4W5-kR-6fR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="s6H-LY-kkl" secondAttribute="trailing" constant="20" id="SMt-nE-crW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="s6H-LY-kkl" secondAttribute="bottom" constant="34" id="SwJ-wL-rpR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OVm-rb-gtL" secondAttribute="bottom" constant="34" id="XWk-tU-TV3"/>
-                            <constraint firstItem="s6H-LY-kkl" firstAttribute="leading" secondItem="OVm-rb-gtL" secondAttribute="trailing" constant="20" id="ZS8-aG-3Ij"/>
+                            <constraint firstItem="Dex-ny-4YV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="2gX-bq-kbc"/>
+                            <constraint firstItem="Dex-ny-4YV" firstAttribute="top" secondItem="BhJ-Z9-enh" secondAttribute="bottom" constant="20" id="4yq-IE-NHw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1Zs-Ms-Huq" secondAttribute="trailing" constant="71" id="Hl9-oO-7xq"/>
+                            <constraint firstItem="BhJ-Z9-enh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="LYN-We-vrQ"/>
+                            <constraint firstItem="1Zs-Ms-Huq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="71" id="Mun-BR-diA"/>
+                            <constraint firstItem="OVm-rb-gtL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="VSJ-rC-OgF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="T0m-Fm-oNt" secondAttribute="trailing" constant="20" id="Vc3-wK-hNn"/>
+                            <constraint firstItem="T0m-Fm-oNt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="ZW7-9E-gXX"/>
+                            <constraint firstItem="s6H-LY-kkl" firstAttribute="top" secondItem="1Zs-Ms-Huq" secondAttribute="bottom" constant="33" id="Zq6-K4-c0A"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="s6H-LY-kkl" secondAttribute="bottom" constant="34" id="dY6-vc-B66"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dex-ny-4YV" secondAttribute="trailing" constant="20" id="erJ-Fc-dAc"/>
+                            <constraint firstItem="BhJ-Z9-enh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="kSk-vJ-CUP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OVm-rb-gtL" secondAttribute="bottom" constant="34" id="lew-Y3-fMT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="s6H-LY-kkl" secondAttribute="trailing" constant="20" id="vSr-ap-yRS"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -69,6 +123,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Default" width="335" height="502"/>
         <namedColor name="ypBlack">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
