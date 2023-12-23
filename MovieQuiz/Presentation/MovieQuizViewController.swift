@@ -4,6 +4,8 @@ final class MovieQuizViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let _: [QuizQuestions] = [QuizQuestions(image: Data(), text: "wdwd", correctAnswer: true)]
     }
 }
 

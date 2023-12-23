@@ -19,6 +19,7 @@
 		E230805D2B2DBD9700A145A0 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E230805C2B2DBD9700A145A0 /* YS Display-Medium.ttf */; };
 		E230805F2B2DBDA500A145A0 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E230805E2B2DBDA500A145A0 /* YS Display-Bold.ttf */; };
 		E23080612B2DBF5900A145A0 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E23080602B2DBF5900A145A0 /* Test.storyboard */; };
+		E29695012B3716240089E0D2 /* QuizQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29695002B3716240089E0D2 /* QuizQuestions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		E230805C2B2DBD9700A145A0 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		E230805E2B2DBDA500A145A0 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		E23080602B2DBF5900A145A0 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
+		E29695002B3716240089E0D2 /* QuizQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		AD1ABAB02831907B00B3E448 /* MovieQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				E29694FF2B3715E10089E0D2 /* Models */,
 				8F4738322848DE2A005DF65E /* Presentation */,
 				ADF0CF75283FDAA10075F54D /* Helpers */,
 				8F4738332848DE46005DF65E /* Resources */,
@@ -107,6 +110,14 @@
 				AD77F5732857F8810062FB14 /* Date+Extensions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E29694FF2B3715E10089E0D2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E29695002B3716240089E0D2 /* QuizQuestions.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +197,7 @@
 			files = (
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
+				E29695012B3716240089E0D2 /* QuizQuestions.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
