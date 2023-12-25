@@ -5,7 +5,7 @@ final class MovieQuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let _: [QuizQuestions] = [QuizQuestions(image: Data(), text: "wdwd", correctAnswer: true)]
+        let questins: [QuizQuestions] = [QuizQuestions(image: Data(), text: "", correctAnswer: true)]
     }
 }
 
