@@ -15,27 +15,26 @@ final class MovieQuizViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        if questions[questionsIndex].correctAnswer == false {
+        if questions[questionsIndex-1].correctAnswer == false {
             rightAnswers += 1
             showAnswerResult(isCorrect: true)
         } else {
             showAnswerResult(isCorrect: false)
         }
-        
-        
+
         showNextQuestionsOrResult()
+        
         
         
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        if questions[questionsIndex].correctAnswer == true {
+        if questions[questionsIndex-1].correctAnswer == true {
             rightAnswers += 1
             showAnswerResult(isCorrect: true)
         } else {
             showAnswerResult(isCorrect: false)
         }
-        
         
         showNextQuestionsOrResult()
     }
@@ -63,6 +62,7 @@ final class MovieQuizViewController: UIViewController {
         movieImage.image = step.image
         movieQuestions.text = step.questions
         movieCount.text = step.questionNumber
+        
     }
     
     private func show(quizResult result: QuizResultViewModel) {
@@ -98,11 +98,18 @@ final class MovieQuizViewController: UIViewController {
     private func showNextQuestionsOrResult() {
         
         
-        if questionsIndex < 9 {
+        if questionsIndex <= 9 {
             
+//            print(questionsIndex)
             let quiz = convert(model: questions[questionsIndex])
             show(quiz: quiz)
+            
+            
             questionsIndex += 1
+            
+            
+            print(questionsIndex)
+            
             
             
         } else {
