@@ -17,15 +17,30 @@ final class MovieQuizViewController: UIViewController {
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         if questions[questionsIndex].correctAnswer == false {
             rightAnswers += 1
+            showAnswerResult(isCorrect: true)
+        } else {
+            showAnswerResult(isCorrect: false)
         }
+        
+        
+        showNextQuestionsOrResult()
+        
         
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         if questions[questionsIndex].correctAnswer == true {
             rightAnswers += 1
+            showAnswerResult(isCorrect: true)
+        } else {
+            showAnswerResult(isCorrect: false)
         }
+        
+        
+        showNextQuestionsOrResult()
     }
+    
+    
     
     // MARK: - Variables
     
@@ -33,32 +48,71 @@ final class MovieQuizViewController: UIViewController {
     var rightAnswers: Int = 0
     
     
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        showNextQuestionsOrResult()
+        
         
     }
     // MARK: - Methods
+    private func show(quiz step: QuizStepViewModel) {
+        movieImage.image = step.image
+        movieQuestions.text = step.questions
+        movieCount.text = step.questionNumber
+    }
+    
+    private func show(quizResult result: QuizResultViewModel) {
+        
+        let alert = UIAlertController(title: result.text, message: result.text, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: result.buttonText, style: .default) { _ in
+            self.questionsIndex = 0
+            self.rightAnswers = 0
+            self.showNextQuestionsOrResult()
+        }
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
     
     private func convert(model: QuizQuestions) -> QuizStepViewModel {
         QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(),
                           questions: model.text,
                           questionNumber: String(questionsIndex + 1) + "/10")
-            
-        }
+        
+    }
     private func showAnswerResult(isCorrect: Bool) {
-        movieImage.layer.masksToBounds = true
-        movieImage.layer.borderWidth = 1
-        movieImage.layer.cornerRadius = 6
+        self.movieImage.layer.masksToBounds = true
+        self.movieImage.layer.borderWidth = 8
+        self.movieImage.layer.cornerRadius = 12
         if isCorrect {
-            movieImage.layer.borderColor = UIColor(named: "ypGreen")?.cgColor
+            self.movieImage.layer.borderColor = UIColor(named: "ypGreen")?.cgColor
         } else {
-            movieImage.layer.borderColor = UIColor(named: "ypRed")?.cgColor
+            self.movieImage.layer.borderColor = UIColor(named: "ypRed")?.cgColor
         }
     }
     
+    private func showNextQuestionsOrResult() {
+        
+        
+        if questionsIndex < 9 {
+            
+            let quiz = convert(model: questions[questionsIndex])
+            show(quiz: quiz)
+            questionsIndex += 1
+            
+            
+        } else {
+            
+            let resultModel = QuizResultViewModel(title: "ИГРА ОКОНЧЕНА", text: "Вы набрали \(rightAnswers)", buttonText: "Начать снова!")
+            
+            show(quizResult: resultModel)
+        }
+        
+    }
 }
 
 // MARK: - Models

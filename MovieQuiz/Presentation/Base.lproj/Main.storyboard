@@ -140,7 +140,7 @@
                     <connections>
                         <outlet property="movieCount" destination="T0m-Fm-oNt" id="xbn-9F-CPJ"/>
                         <outlet property="movieImage" destination="Dex-ny-4YV" id="Q4V-DK-YHj"/>
-                        <outlet property="movieQuestions" destination="BhJ-Z9-enh" id="NJG-LG-uHZ"/>
+                        <outlet property="movieQuestions" destination="1Zs-Ms-Huq" id="ljR-9o-oQb"/>
                         <outlet property="noButton" destination="s6H-LY-kkl" id="QCj-yw-Psp"/>
                         <outlet property="yesButton" destination="OVm-rb-gtL" id="AQN-bx-qrm"/>
                     </connections>
