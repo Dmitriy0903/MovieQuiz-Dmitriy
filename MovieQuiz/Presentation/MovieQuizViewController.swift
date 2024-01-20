@@ -40,7 +40,7 @@ final class MovieQuizViewController: UIViewController {
         
         
     }
-    // MARK: - Functions
+    // MARK: - Methods
     
     private func convert(model: QuizQuestions) -> QuizStepViewModel {
         QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(),
@@ -57,8 +57,8 @@ final class MovieQuizViewController: UIViewController {
         } else {
             movieImage.layer.borderColor = UIColor(named: "ypRed")?.cgColor
         }
-        
     }
+    
 }
 
 // MARK: - Models
