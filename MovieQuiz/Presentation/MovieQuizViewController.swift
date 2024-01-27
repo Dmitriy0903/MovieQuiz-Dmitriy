@@ -21,10 +21,8 @@ final class MovieQuizViewController: UIViewController {
         } else {
             showAnswerResult(isCorrect: false)
         }
-
+        
         showNextQuestionsOrResult()
-        
-        
         
     }
     
@@ -59,6 +57,7 @@ final class MovieQuizViewController: UIViewController {
     }
     // MARK: - Methods
     private func show(quiz step: QuizStepViewModel) {
+        
         movieImage.image = step.image
         movieQuestions.text = step.questions
         movieCount.text = step.questionNumber
@@ -93,6 +92,7 @@ final class MovieQuizViewController: UIViewController {
         } else {
             self.movieImage.layer.borderColor = UIColor(named: "ypRed")?.cgColor
         }
+        
     }
     
     private func showNextQuestionsOrResult() {
@@ -100,16 +100,9 @@ final class MovieQuizViewController: UIViewController {
         
         if questionsIndex <= 9 {
             
-//            print(questionsIndex)
             let quiz = convert(model: questions[questionsIndex])
             show(quiz: quiz)
-            
-            
             questionsIndex += 1
-            
-            
-            print(questionsIndex)
-            
             
             
         } else {
