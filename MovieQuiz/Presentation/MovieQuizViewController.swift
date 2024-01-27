@@ -15,6 +15,8 @@ final class MovieQuizViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
+        
+        enabledButtons(isEnabled: false)
         if questions[questionsIndex-1].correctAnswer == false {
             rightAnswers += 1
             showAnswerResult(isCorrect: true)
@@ -22,11 +24,11 @@ final class MovieQuizViewController: UIViewController {
             showAnswerResult(isCorrect: false)
         }
         
-        showNextQuestionsOrResult()
-        
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        
+        enabledButtons(isEnabled: false)
         if questions[questionsIndex-1].correctAnswer == true {
             rightAnswers += 1
             showAnswerResult(isCorrect: true)
@@ -34,17 +36,12 @@ final class MovieQuizViewController: UIViewController {
             showAnswerResult(isCorrect: false)
         }
         
-        showNextQuestionsOrResult()
     }
-    
-    
     
     // MARK: - Variables
     
     var questionsIndex: Int = 0
     var rightAnswers: Int = 0
-    
-    
     
     // MARK: - Lifecycle
     
@@ -53,9 +50,9 @@ final class MovieQuizViewController: UIViewController {
         
         showNextQuestionsOrResult()
         
-        
     }
     // MARK: - Methods
+    
     private func show(quiz step: QuizStepViewModel) {
         
         movieImage.image = step.image
@@ -64,9 +61,14 @@ final class MovieQuizViewController: UIViewController {
         
     }
     
+    private func enabledButtons(isEnabled: Bool) {
+        self.noButton.isEnabled = isEnabled
+        self.yesButton.isEnabled = isEnabled
+    }
+    
     private func show(quizResult result: QuizResultViewModel) {
         
-        let alert = UIAlertController(title: result.text, message: result.text, preferredStyle: .alert)
+        let alert = UIAlertController(title: result.title, message: result.text, preferredStyle: .alert)
         
         let action = UIAlertAction(title: result.buttonText, style: .default) { _ in
             self.questionsIndex = 0
@@ -81,9 +83,10 @@ final class MovieQuizViewController: UIViewController {
         QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(),
                           questions: model.text,
                           questionNumber: String(questionsIndex + 1) + "/10")
-        
     }
+    
     private func showAnswerResult(isCorrect: Bool) {
+        
         self.movieImage.layer.masksToBounds = true
         self.movieImage.layer.borderWidth = 8
         self.movieImage.layer.cornerRadius = 12
@@ -92,31 +95,33 @@ final class MovieQuizViewController: UIViewController {
         } else {
             self.movieImage.layer.borderColor = UIColor(named: "ypRed")?.cgColor
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            
+            self.movieImage.layer.borderWidth = 0
+            self.showNextQuestionsOrResult()
+        }
         
     }
     
     private func showNextQuestionsOrResult() {
         
-        
+        enabledButtons(isEnabled: true)
         if questionsIndex <= 9 {
             
             let quiz = convert(model: questions[questionsIndex])
             show(quiz: quiz)
             questionsIndex += 1
             
-            
         } else {
             
-            let resultModel = QuizResultViewModel(title: "ИГРА ОКОНЧЕНА", text: "Вы набрали \(rightAnswers)", buttonText: "Начать снова!")
+            let resultModel = QuizResultViewModel(title: "Игра окончена!", text: "Вы набрали -  \(rightAnswers)", buttonText: "Начать снова!")
             
             show(quizResult: resultModel)
         }
-        
     }
 }
 
 // MARK: - Models
-
 
 struct QuizQuestions {
     let image: String
@@ -135,7 +140,6 @@ struct QuizResultViewModel {
     let text: String
     let buttonText: String
 }
-
 
  // MARK: - Mock-данные
  
@@ -169,6 +173,4 @@ private let questions: [QuizQuestions] = [
                   correctAnswer: false),
     QuizQuestions(image: "Vivarium",
                   text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: false)
-]
- 
+                  correctAnswer: false)]
