@@ -2,7 +2,7 @@
 import UIKit
 import Foundation
 
-final class MovieQuizViewController: UIViewController {
+final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // MARK: - Outlets
     
@@ -17,41 +17,51 @@ final class MovieQuizViewController: UIViewController {
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         
         enabledButtons(isEnabled: false)
-        if questions[questionsIndex-1].correctAnswer == false {
+        guard let question = currentQuestion else { return }
+        if question.correctAnswer == false {
             rightAnswers += 1
             showAnswerResult(isCorrect: true)
         } else {
             showAnswerResult(isCorrect: false)
         }
-        
+        currentQuestion = questionsFactory.requestNextQuestions()
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         
         enabledButtons(isEnabled: false)
-        if questions[questionsIndex-1].correctAnswer == true {
+        guard let question = currentQuestion else { return }
+        if question.correctAnswer == true {
             rightAnswers += 1
             showAnswerResult(isCorrect: true)
         } else {
             showAnswerResult(isCorrect: false)
         }
-        
+        currentQuestion = questionsFactory.requestNextQuestions()
     }
     
     // MARK: - Variables
     
-    var questionsIndex: Int = 0
-    var rightAnswers: Int = 0
+    private var questionsIndex: Int = 0
+    private var rightAnswers: Int = 0
+    
+    private let questionAmount: Int = 10
+    private var questionsFactory: QuestionFactoryProtocol = QuestionFactory()
+    private var currentQuestion: QuizQuestions?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        currentQuestion = questionsFactory.requestNextQuestions()
         showNextQuestionsOrResult()
         
     }
     // MARK: - Methods
+    
+    func didReceiveNextQuestion(question: QuizQuestions?) {
+        <#code#>
+    }
     
     private func show(quiz step: QuizStepViewModel) {
         
@@ -70,7 +80,9 @@ final class MovieQuizViewController: UIViewController {
         
         let alert = UIAlertController(title: result.title, message: result.text, preferredStyle: .alert)
         
-        let action = UIAlertAction(title: result.buttonText, style: .default) { _ in
+        let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
+            guard let self else { return }
+            
             self.questionsIndex = 0
             self.rightAnswers = 0
             self.showNextQuestionsOrResult()
@@ -95,7 +107,8 @@ final class MovieQuizViewController: UIViewController {
         } else {
             self.movieImage.layer.borderColor = UIColor(named: "ypRed")?.cgColor
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self else { return }
             
             self.movieImage.layer.borderWidth = 0
             self.showNextQuestionsOrResult()
@@ -107,8 +120,8 @@ final class MovieQuizViewController: UIViewController {
         
         enabledButtons(isEnabled: true)
         if questionsIndex <= 9 {
-            
-            let quiz = convert(model: questions[questionsIndex])
+            guard let question = currentQuestion else { return }
+            let quiz = convert(model: question)
             show(quiz: quiz)
             questionsIndex += 1
             
@@ -120,57 +133,3 @@ final class MovieQuizViewController: UIViewController {
         }
     }
 }
-
-// MARK: - Models
-
-struct QuizQuestions {
-    let image: String
-    let text: String
-    let correctAnswer: Bool
-}
-
-struct QuizStepViewModel {
-    let image: UIImage
-    let questions: String
-    let questionNumber: String
-}
-
-struct QuizResultViewModel {
-    let title: String
-    let text: String
-    let buttonText: String
-}
-
- // MARK: - Mock-данные
- 
-private let questions: [QuizQuestions] = [
-    QuizQuestions(image: "The Godfather",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: true),
-    QuizQuestions(image: "The Dark Knight",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: true),
-    QuizQuestions(image: "Kill Bill",
-                  text: "Вопрос: Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: true),
-    QuizQuestions(image: "The Avengers",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: true),
-    QuizQuestions(image: "Deadpool",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: true),
-    QuizQuestions(image: "The Green Knight",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: true),
-    QuizQuestions(image: "Old",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: false),
-    QuizQuestions(image: "The Ice Age Adventures of Buck Wild",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: false),
-    QuizQuestions(image: "Tesla",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: false),
-    QuizQuestions(image: "Vivarium",
-                  text: "Рейтинг этого фильма больше чем 6?",
-                  correctAnswer: false)]
