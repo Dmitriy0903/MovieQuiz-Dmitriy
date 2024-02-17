@@ -24,7 +24,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         } else {
             showAnswerResult(isCorrect: false)
         }
-        currentQuestion = questionsFactory.requestNextQuestions()
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
@@ -37,30 +36,35 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         } else {
             showAnswerResult(isCorrect: false)
         }
-        currentQuestion = questionsFactory.requestNextQuestions()
     }
     
     // MARK: - Variables
     
     private var questionsIndex: Int = 0
     private var rightAnswers: Int = 0
-    
     private let questionAmount: Int = 10
-    private var questionsFactory: QuestionFactoryProtocol = QuestionFactory()
+    private var questionsFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestions?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentQuestion = questionsFactory.requestNextQuestions()
-        showNextQuestionsOrResult()
+        questionsFactory = QuestionFactory(delegate: self)
+        
+        questionsFactory?.requestNextQuestions()
         
     }
     // MARK: - Methods
     
     func didReceiveNextQuestion(question: QuizQuestions?) {
-        <#code#>
+        guard let question = question else { return }
+        
+        currentQuestion = question
+        let viewModel = convert(model: question)
+        DispatchQueue.main.async { [weak self] in
+            self?.show(quiz: viewModel)
+        }
     }
     
     private func show(quiz step: QuizStepViewModel) {
@@ -68,7 +72,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         movieImage.image = step.image
         movieQuestions.text = step.questions
         movieCount.text = step.questionNumber
-        
     }
     
     private func enabledButtons(isEnabled: Bool) {
@@ -87,6 +90,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.rightAnswers = 0
             self.showNextQuestionsOrResult()
         }
+        
         alert.addAction(action)
         present(alert, animated: true)
     }
@@ -111,19 +115,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             guard let self else { return }
             
             self.movieImage.layer.borderWidth = 0
+            questionsIndex += 1
             self.showNextQuestionsOrResult()
         }
-        
     }
     
     private func showNextQuestionsOrResult() {
         
         enabledButtons(isEnabled: true)
         if questionsIndex <= 9 {
-            guard let question = currentQuestion else { return }
-            let quiz = convert(model: question)
-            show(quiz: quiz)
-            questionsIndex += 1
+            questionsFactory?.requestNextQuestions()
             
         } else {
             
