@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+protocol AlertPresentationProtocol {
+    func showResult(model: AlertModel) 
+}
+

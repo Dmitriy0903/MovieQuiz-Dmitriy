@@ -5,4 +5,8 @@
 //  Created by Dmitriy Shcherbakov   on 18.02.2024.
 //
 
-import Foundation
+import UIKit
+
+protocol AlertPresentationDelegate: UIViewController {
+    func getAlertResult()
+}

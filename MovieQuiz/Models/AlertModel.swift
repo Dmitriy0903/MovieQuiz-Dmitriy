@@ -8,8 +8,8 @@
 import Foundation
 
 struct AlertModel {
-    let title: String = "Игра окончена!"
-    let message: String = "Вы набрали - "
-    let buttonText: String = "Начать снова?"
-    let completion: () -> ()
+    let title: String?
+    let message: String?
+    let buttonText: String?
+    let completion: () -> ()?
 }
