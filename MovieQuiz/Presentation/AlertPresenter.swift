@@ -1,5 +1,5 @@
 //
-//  AlertPresentation.swift
+//  AlertPresenter.swift
 //  MovieQuiz
 //
 //  Created by movavi_school on 17.02.2024.

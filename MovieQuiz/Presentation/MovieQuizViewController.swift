@@ -1,5 +1,5 @@
 // MARK: - Import library
-import UIKit
+import UIKit // какой клавишей в xcode можно изменить название класса во всем проекте?
 import Foundation
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
