@@ -1,10 +1,10 @@
 // MARK: - Import library
-import UIKit // какой клавишей в xcode можно изменить название класса во всем проекте?
+import UIKit
 import Foundation
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
-    // MARK: - Outlets
+// MARK: - Outlets
     
     @IBOutlet private weak var movieImage: UIImageView!
     @IBOutlet private weak var movieQuestions: UILabel!
@@ -12,7 +12,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet weak var yesButton: UIButton!
     @IBOutlet weak var noButton: UIButton!
     
-    // MARK: - Actions
+// MARK: - Actions
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         enabledButtons(isEnabled: false)
@@ -36,7 +36,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
     
-    // MARK: - Variables
+// MARK: - Variables
     
     private var questionsIndex: Int = 0
     private var rightAnswers: Int = 0
@@ -45,16 +45,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var currentQuestion: QuizQuestions?
     private var alertPresenter: AlertPresenterProtocol?
     
-    // MARK: - Lifecycle
+// MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         questionsFactory = QuestionFactory(delegate: self)
         alertPresenter = AlertPresenter(delegate: self)
+        print(Bundle.main.bundlePath)
         
         questionsFactory?.requestNextQuestions()
     }
-    // MARK: - Methods
+// MARK: - Methods
     
     func didReceiveNextQuestion(question: QuizQuestions?) {
         guard let question = question else { return }
@@ -108,6 +109,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
 }
+
+// MARK: - Extension
 
 extension MovieQuizViewController: AlertPresenterDelegate {
     func getAlertResult() {
