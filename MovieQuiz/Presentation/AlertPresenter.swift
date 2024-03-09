@@ -7,11 +7,11 @@
 
 import UIKit
 
-class AlertPresentation: AlertPresentationProtocol {
+class AlertPresenter: AlertPresenterProtocol {
     
-    private weak var delegate: AlertPresentationDelegate?
+    private weak var delegate: AlertPresenterDelegate?
     
-    init(delegate: AlertPresentationDelegate?) {
+    init(delegate: AlertPresenterDelegate?) {
         self.delegate = delegate
     }
     

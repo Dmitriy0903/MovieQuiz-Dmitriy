@@ -43,14 +43,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private let questionAmount: Int = 10
     private var questionsFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestions?
-    private var alertPresenter: AlertPresentationProtocol?
+    private var alertPresenter: AlertPresenterProtocol?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         questionsFactory = QuestionFactory(delegate: self)
-        alertPresenter = AlertPresentation(delegate: self)
+        alertPresenter = AlertPresenter(delegate: self)
         
         questionsFactory?.requestNextQuestions()
     }
@@ -109,7 +109,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
 }
 
-extension MovieQuizViewController: AlertPresentationDelegate {
+extension MovieQuizViewController: AlertPresenterDelegate {
     func getAlertResult() {
         let alertModel: AlertModel = AlertModel(title: "Игра окончена!", message: "Вы набрали -  \(rightAnswers)", buttonText: "Начать снова!") {
             self.questionsIndex = 0

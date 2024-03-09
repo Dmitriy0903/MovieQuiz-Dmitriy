@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol AlertPresentationDelegate: UIViewController {
+protocol AlertPresenterDelegate: UIViewController {
     func getAlertResult()
 }
