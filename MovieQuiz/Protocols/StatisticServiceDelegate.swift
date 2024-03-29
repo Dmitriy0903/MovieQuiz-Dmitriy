@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+protocol StatisticServiceDelegate: AnyObject {
+    func settingValuesAlertMessage()
+    
+}

@@ -44,6 +44,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var questionsFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestions?
     private var alertPresenter: AlertPresenterProtocol?
+    private var statisticService: StatisticServiceProtocol?
     
 // MARK: - Lifecycle
     
@@ -51,7 +52,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         super.viewDidLoad()
         questionsFactory = QuestionFactory(delegate: self)
         alertPresenter = AlertPresenter(delegate: self)
-        print(Bundle.main.bundlePath)
+        statisticService = StatisticService(delegate: self)
+        
+        //print(Bundle.main.bundlePath)
         
         questionsFactory?.requestNextQuestions()
     }
@@ -113,12 +116,25 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 // MARK: - Extension
 
 extension MovieQuizViewController: AlertPresenterDelegate {
+    
+    
     func getAlertResult() {
-        let alertModel: AlertModel = AlertModel(title: "Игра окончена!", message: "Вы набрали -  \(rightAnswers)", buttonText: "Начать снова!") {
+        settingValuesAlertMessage()
+        let alertModel: AlertModel = AlertModel(title: "Игра окончена!",
+                                                message: "Ваш результат: \(rightAnswers)/10\nКолличество сыгранных игр: ",
+                                                buttonText: "Начать снова!") {
             self.questionsIndex = 0
             self.rightAnswers = 0
             self.showNextQuestionsOrResult()
         }
         alertPresenter?.showResult(model: alertModel)
     }
+}
+
+extension MovieQuizViewController: StatisticServiceDelegate {
+    func settingValuesAlertMessage() {
+        <#code#>
+    }
+    
+    
 }

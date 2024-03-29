@@ -7,7 +7,15 @@
 
 import Foundation
 
-class statisticService: StatisticServiceProtocol {
+class StatisticService: StatisticServiceProtocol {
+    
+    // MARK: Delegate
+    private weak var delegate: StatisticServiceDelegate?
+    
+    init(delegate: StatisticServiceDelegate?) {
+        self.delegate = delegate
+    }
+    
     // MARK: Keys
     private enum Keys: String {
         case allTimeQuestions, bestGame, gamesCount, allTimeCorrect
