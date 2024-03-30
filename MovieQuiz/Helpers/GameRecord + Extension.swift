@@ -13,6 +13,6 @@ extension GameRecord: Comparable {
     }
     
     static func < (first: GameRecord, second: GameRecord) -> Bool {
-        return first.correct == second.correct
+        return first.correct < second.correct
     }
 }

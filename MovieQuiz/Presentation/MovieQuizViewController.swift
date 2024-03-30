@@ -44,7 +44,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var questionsFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestions?
     private var alertPresenter: AlertPresenterProtocol?
-    private var statisticService: StatisticServiceProtocol?
+    
+    private var statisticService: StatisticServiceProtocol!
     
 // MARK: - Lifecycle
     
@@ -52,9 +53,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         super.viewDidLoad()
         questionsFactory = QuestionFactory(delegate: self)
         alertPresenter = AlertPresenter(delegate: self)
-        statisticService = StatisticService(delegate: self)
-        
-        //print(Bundle.main.bundlePath)
+        statisticService = StatisticService()
         
         questionsFactory?.requestNextQuestions()
     }
@@ -103,12 +102,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showNextQuestionsOrResult() {
-        enabledButtons(isEnabled: true)
-        if questionsIndex <= 9 {
+        
+        if questionsIndex <= questionAmount - 1 {
             questionsFactory?.requestNextQuestions()
-            
+            enabledButtons(isEnabled: true)
         } else {
-            getAlertResult()
+            statisticService.store(correct: rightAnswers, total: questionAmount)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.getAlertResult()
+            }
         }
     }
 }
@@ -117,24 +119,22 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
 extension MovieQuizViewController: AlertPresenterDelegate {
     
-    
     func getAlertResult() {
-        settingValuesAlertMessage()
-        let alertModel: AlertModel = AlertModel(title: "Игра окончена!",
-                                                message: "Ваш результат: \(rightAnswers)/10\nКолличество сыгранных игр: ",
-                                                buttonText: "Начать снова!") {
+        
+        let text = """
+
+Ваш результат: \(rightAnswers)/10
+Колличество сыгранных игр: \(statisticService.gameCount)
+Рекорд: \(statisticService.bestGame.correct)/10 (\(statisticService.bestGame.date.dateTimeString))
+Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
+"""
+        let alertModel: AlertModel = AlertModel(title: "Этот раунд окончен!",
+                                                message: text,
+                                                buttonText: "Сыграть ещё раз!") {
             self.questionsIndex = 0
             self.rightAnswers = 0
             self.showNextQuestionsOrResult()
         }
         alertPresenter?.showResult(model: alertModel)
     }
-}
-
-extension MovieQuizViewController: StatisticServiceDelegate {
-    func settingValuesAlertMessage() {
-        <#code#>
-    }
-    
-    
 }
