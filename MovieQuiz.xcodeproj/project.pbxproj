@@ -28,6 +28,7 @@
 		E2C32AA32BA5B00C009A3D10 /* GameRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C32AA22BA5B00C009A3D10 /* GameRecord.swift */; };
 		E2C32AA52BA5B201009A3D10 /* StatisticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C32AA42BA5B201009A3D10 /* StatisticService.swift */; };
 		E2C32AA72BA5CE6E009A3D10 /* GameRecord + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C32AA62BA5CE6E009A3D10 /* GameRecord + Extension.swift */; };
+		E2C4DD762BC17D4300F6C9ED /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4DD752BC17D4300F6C9ED /* MostPopularMovies.swift */; };
 		E2DEACD72B6E52B900835F75 /* QuizQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DEACD62B6E52B900835F75 /* QuizQuestions.swift */; };
 		E2DEACD92B6E530B00835F75 /* QuizStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DEACD82B6E530B00835F75 /* QuizStepViewModel.swift */; };
 		E2DEACDE2B6E553800835F75 /* QuestionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DEACDD2B6E553800835F75 /* QuestionFactory.swift */; };
@@ -59,6 +60,7 @@
 		E2C32AA22BA5B00C009A3D10 /* GameRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRecord.swift; sourceTree = "<group>"; };
 		E2C32AA42BA5B201009A3D10 /* StatisticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticService.swift; sourceTree = "<group>"; };
 		E2C32AA62BA5CE6E009A3D10 /* GameRecord + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameRecord + Extension.swift"; sourceTree = "<group>"; };
+		E2C4DD752BC17D4300F6C9ED /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
 		E2DEACD62B6E52B900835F75 /* QuizQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestions.swift; sourceTree = "<group>"; };
 		E2DEACD82B6E530B00835F75 /* QuizStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizStepViewModel.swift; sourceTree = "<group>"; };
 		E2DEACDD2B6E553800835F75 /* QuestionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactory.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				E2DEACD82B6E530B00835F75 /* QuizStepViewModel.swift */,
 				E26E5C812B80EA400068AD36 /* AlertModel.swift */,
 				E2C32AA22BA5B00C009A3D10 /* GameRecord.swift */,
+				E2C4DD752BC17D4300F6C9ED /* MostPopularMovies.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				E25FE0982BB84A110010839B /* MovieLoader.swift in Sources */,
 				E2C32AA72BA5CE6E009A3D10 /* GameRecord + Extension.swift in Sources */,
 				E2DEACE12B6E6F8900835F75 /* QuestionFactoryProtocol.swift in Sources */,
+				E2C4DD762BC17D4300F6C9ED /* MostPopularMovies.swift in Sources */,
 				E2DEACE32B6E72EB00835F75 /* QuestionFactoryDelegate.swift in Sources */,
 				E2C32AA12BA5AF74009A3D10 /* StatisticServiceProtocol.swift in Sources */,
 				E26E5C822B80EA400068AD36 /* AlertModel.swift in Sources */,

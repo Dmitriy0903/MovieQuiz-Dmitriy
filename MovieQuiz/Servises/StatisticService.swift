@@ -49,7 +49,7 @@ class StatisticService: StatisticServiceProtocol {
             guard let data = userDefaults.data(forKey: Keys.gamesCount.rawValue),
                   let count = try? JSONDecoder().decode(Int.self, from: data) else {
                     print("Значение получено некорректно gameCount")
-                    return 1
+                    return 0
                   }
             return count
         }

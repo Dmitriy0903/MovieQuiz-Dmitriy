@@ -31,13 +31,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="224" translatesAutoresizingMaskIntoConstraints="NO" id="k96-LA-86s" userLabel="questions stack">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="24"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Вопрос:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhJ-Z9-enh">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Вопрос:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhJ-Z9-enh">
                                                 <rect key="frame" x="0.0" y="0.0" width="88.666666666666671" height="24"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" name="ypWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1/10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0m-Fm-oNt">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0m-Fm-oNt">
                                                 <rect key="frame" x="312.66666666666669" y="0.0" width="40.333333333333314" height="24"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" name="ypWhite"/>
@@ -48,7 +48,7 @@
                                             <constraint firstAttribute="height" constant="24" id="H5O-UO-hlv"/>
                                         </constraints>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="Dex-ny-4YV">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dex-ny-4YV">
                                         <rect key="frame" x="0.0" y="44" width="353" height="529.66666666666663"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Dex-ny-4YV" secondAttribute="height" multiplier="2:3" id="mo0-c1-zaZ"/>
@@ -127,17 +127,23 @@
                                     <constraint firstAttribute="trailing" secondItem="QXM-JM-GVR" secondAttribute="trailing" id="s9V-lO-12n"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="uDh-j3-aVo">
+                                <rect key="frame" x="186.66666666666666" y="428.66666666666669" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="ypBlack"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Mdp-zD-ZKg" secondAttribute="trailing" constant="20" id="2Vi-3b-dhb"/>
+                            <constraint firstItem="uDh-j3-aVo" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="I4z-fw-FAG"/>
+                            <constraint firstItem="uDh-j3-aVo" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="LL5-Wk-eR7"/>
                             <constraint firstItem="Mdp-zD-ZKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="WtZ-ZD-SBQ"/>
                             <constraint firstItem="Mdp-zD-ZKg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="YMh-mo-rOM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Mdp-zD-ZKg" secondAttribute="bottom" id="gos-MM-fl2"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="uDh-j3-aVo" id="JRB-GO-eI8"/>
                         <outlet property="movieCount" destination="T0m-Fm-oNt" id="xbn-9F-CPJ"/>
                         <outlet property="movieImage" destination="Dex-ny-4YV" id="Q4V-DK-YHj"/>
                         <outlet property="movieQuestions" destination="1Zs-Ms-Huq" id="ljR-9o-oQb"/>
@@ -151,7 +157,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Default" width="335" height="502"/>
         <namedColor name="ypBlack">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

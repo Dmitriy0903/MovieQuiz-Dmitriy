@@ -6,6 +6,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
 // MARK: - Outlets
     
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var movieImage: UIImageView!
     @IBOutlet private weak var movieQuestions: UILabel!
     @IBOutlet private weak var movieCount: UILabel!
@@ -69,6 +70,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
     
+    private func restartGame() {
+        questionsIndex = 0
+        rightAnswers = 0
+        questionsFactory?.requestNextQuestions()
+    }
+    
     private func show(quiz step: QuizStepViewModel) {
         movieImage.image = step.image
         movieQuestions.text = step.questions
@@ -99,6 +106,28 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             questionsIndex += 1
             showNextQuestionsOrResult()
         }
+    }
+    
+    private func showNetworkError(message: String) {
+        hideIndicator()
+        
+        let alert = AlertModel(title: "Ошибка!",
+                               message: message,
+                               buttonText: "Попробовать еще раз!") { [weak self] in
+            guard let self else { return }
+            self.questionsFactory?.requestNextQuestions()
+        }
+        alertPresenter?.showResult(model: alert)
+    }
+    
+    private func showIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func hideIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
     }
     
     private func showNextQuestionsOrResult() {
