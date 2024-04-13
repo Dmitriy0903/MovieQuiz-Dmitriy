@@ -52,11 +52,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        questionsFactory = QuestionFactory(delegate: self)
+        questionsFactory = QuestionFactory(delegate: self, movieLoader: MovieLoader())
         alertPresenter = AlertPresenter(delegate: self)
         statisticService = StatisticService()
         
-        questionsFactory?.requestNextQuestions()
+        showIndicator()
+        questionsFactory?.loadData()
     }
 // MARK: - Methods
     
@@ -68,6 +69,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
         }
+    }
+    
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true
+        questionsFactory?.requestNextQuestions()
+    }
+    
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription)
     }
     
     private func restartGame() {
@@ -88,7 +98,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func convert(model: QuizQuestions) -> QuizStepViewModel {
-        QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(),
+        QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
                           questions: model.text,
                           questionNumber: String(questionsIndex + 1) + "/10")
     }

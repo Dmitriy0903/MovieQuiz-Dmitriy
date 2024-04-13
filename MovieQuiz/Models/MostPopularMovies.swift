@@ -9,7 +9,7 @@ import Foundation
 
 struct MostPopularMovies: Codable {
     let errorMessage: String
-    let movies: [MostPopularMovie]
+    let items: [MostPopularMovie]
 }
 
 struct MostPopularMovie: Codable {
@@ -19,7 +19,7 @@ struct MostPopularMovie: Codable {
     
     private enum CodingKeys: String, CodingKey {
         case title = "fullTitle"
-        case rating = "rank"
+        case rating = "imDbRating"
         case imageURL = "image"
     }
 }
