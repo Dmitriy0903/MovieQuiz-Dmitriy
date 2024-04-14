@@ -33,13 +33,42 @@ class QuestionFactory: QuestionFactoryProtocol {
             
             let rating = Float(movie.rating) ?? 0
             
-            let questionRank = (8...9).randomElement() ?? 9
+            var questionRank: Float
+            
+            if rating <= 6.5 {
+                questionRank = Float.random(in: 6.3...6.7)
+            } else if rating <= 7.5 {
+                questionRank = Float.random(in: 7.3...7.6)
+            } else if rating <= 8.0 {
+                questionRank = Float.random(in: 7.8...8.1)
+            } else if rating <= 8.3 {
+                questionRank = Float.random(in: 8.1...8.4)
+            } else if rating <= 8.6 {
+                questionRank = Float.random(in: 8.35...8.7)
+            } else if rating <= 9.0 {
+                questionRank = Float.random(in: 8.7...9.1)
+            } else if rating <= 9.3 {
+                questionRank = Float.random(in: 9.1...9.4)
+            } else {
+                questionRank = 9.5
+            }
             
             
             
-            let text = "Рейтинг этого фильма больше чем \(questionRank)?"
+            let numForMoreOrLess: Dictionary = [1: "больше", 2: "меньше"]
+            let indexForMoreOrLess = (1...2).randomElement() ?? 1
             
-            let correctAnswer = Int(rating) > questionRank
+            let moreOrLess: String = numForMoreOrLess[indexForMoreOrLess] ?? "!"
+
+            let text = "Рейтинг этого фильма \(moreOrLess) чем \(String(format: "%.1f", questionRank))?"
+            var correctAnswer: Bool
+            
+            if indexForMoreOrLess == 1 {
+                correctAnswer = rating > questionRank
+            } else {
+                correctAnswer = rating < questionRank
+            }
+            
             print("\(rating) \(questionRank)")
             let question = QuizQuestions(image: imageData,
                                          text: text,
