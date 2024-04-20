@@ -17,31 +17,21 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         enabledButtons(isEnabled: false)
-        guard let question = currentQuestion else { return }
-        if question.correctAnswer == false {
-            rightAnswers += 1
-            showAnswerResult(isCorrect: true)
-        } else {
-            showAnswerResult(isCorrect: false)
-        }
+        presenter.currentQuestion = currentQuestion
+        presenter.noButtonClicked()
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         enabledButtons(isEnabled: false)
-        guard let question = currentQuestion else { return }
-        if question.correctAnswer == true {
-            rightAnswers += 1
-            showAnswerResult(isCorrect: true)
-        } else {
-            showAnswerResult(isCorrect: false)
-        }
+        presenter.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
 // MARK: - Variables
     
     private var questionsIndex: Int = 0
-    private var rightAnswers: Int = 0
-    private let questionAmount: Int = 10
+    
+    private var presenter = MovieQuizPresenter()
     private var questionsFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestions?
     private var alertPresenter: AlertPresenterProtocol?
@@ -55,17 +45,19 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionsFactory = QuestionFactory(delegate: self, movieLoader: MovieLoader())
         alertPresenter = AlertPresenter(delegate: self)
         statisticService = StatisticService()
+        presenter.viewController = self
         
         showIndicator()
         questionsFactory?.loadData()
     }
+    
 // MARK: - Methods
     
     func didReceiveNextQuestion(question: QuizQuestions?) {
         guard let question = question else { return }
 
         currentQuestion = question
-        let viewModel = convert(model: question)
+        let viewModel = presenter.convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
         }
@@ -81,8 +73,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func restartGame() {
-        questionsIndex = 0
-        rightAnswers = 0
+        presenter.resetQuestionIndex()
         questionsFactory?.requestNextQuestions()
     }
     
@@ -97,13 +88,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         yesButton.isEnabled = isEnabled
     }
     
-    private func convert(model: QuizQuestions) -> QuizStepViewModel {
-        QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
-                          questions: model.text,
-                          questionNumber: String(questionsIndex + 1) + "/10")
-    }
     
-    private func showAnswerResult(isCorrect: Bool) {
+    
+    func showAnswerResult(isCorrect: Bool) {
         movieImage.layer.masksToBounds = true
         movieImage.layer.borderWidth = 8
         movieImage.layer.cornerRadius = 12
@@ -113,14 +100,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             guard let self else { return }
             
             movieImage.layer.borderWidth = 0
-            questionsIndex += 1
             showNextQuestionsOrResult()
         }
     }
     
     private func showNetworkError(message: String) {
         hideIndicator()
-        
+        presenter.resetQuestionIndex()
         let alert = AlertModel(title: "Ошибка!",
                                message: message,
                                buttonText: "Попробовать еще раз!") { [weak self] in
@@ -141,18 +127,18 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showNextQuestionsOrResult() {
-        
-        if questionsIndex <= questionAmount - 1 {
-            questionsFactory?.requestNextQuestions()
-            enabledButtons(isEnabled: true)
-        } else {
-            statisticService.store(correct: rightAnswers, total: questionAmount)
+        if presenter.isLastQuestion() {
+            statisticService.store(correct: presenter.correctAnswers, total: presenter.questionAmount)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.getAlertResult()
             }
+        } else {
+            presenter.switchToNextQuestion()
+            questionsFactory?.requestNextQuestions()
+            enabledButtons(isEnabled: true)
+            }
         }
     }
-}
 
 // MARK: - Extension
 
@@ -161,8 +147,7 @@ extension MovieQuizViewController: AlertPresenterDelegate {
     func getAlertResult() {
         
         let text = """
-
-Ваш результат: \(rightAnswers)/10
+Ваш результат: \(presenter.correctAnswers)/\(presenter.questionAmount)
 Колличество сыгранных игр: \(statisticService.gameCount)
 Рекорд: \(statisticService.bestGame.correct)/10 (\(statisticService.bestGame.date.dateTimeString))
 Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
@@ -170,8 +155,7 @@ extension MovieQuizViewController: AlertPresenterDelegate {
         let alertModel: AlertModel = AlertModel(title: "Этот раунд окончен!",
                                                 message: text,
                                                 buttonText: "Сыграть ещё раз!") {
-            self.questionsIndex = 0
-            self.rightAnswers = 0
+            self.presenter.resetQuestionIndex()
             self.showNextQuestionsOrResult()
         }
         alertPresenter?.showResult(model: alertModel)
