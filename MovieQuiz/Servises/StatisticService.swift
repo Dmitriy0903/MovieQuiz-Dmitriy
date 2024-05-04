@@ -14,10 +14,8 @@ class StatisticService: StatisticServiceProtocol {
         case allTimeQuestions, bestGame, gamesCount, allTimeCorrect
     }
     
-    
     // MARK: - Constants
     private let userDefaults = UserDefaults.standard
-    
     
     // MARK: - Variables
     var totalAccuracy: Double {

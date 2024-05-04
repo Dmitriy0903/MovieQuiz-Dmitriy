@@ -53,8 +53,6 @@ class QuestionFactory: QuestionFactoryProtocol {
                 questionRank = 9.5
             }
             
-            
-            
             let numForMoreOrLess: Dictionary = [1: "больше", 2: "меньше"]
             let indexForMoreOrLess = (1...2).randomElement() ?? 1
             
@@ -69,11 +67,9 @@ class QuestionFactory: QuestionFactoryProtocol {
                 correctAnswer = rating < questionRank
             }
             
-            print("\(rating) \(questionRank)")
             let question = QuizQuestions(image: imageData,
                                          text: text,
                                          correctAnswer: correctAnswer)
-            
             
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
@@ -100,10 +96,6 @@ class QuestionFactory: QuestionFactoryProtocol {
         }
     }
     }
-    
-    
-    
-    
     
 //    private let questions: [QuizQuestions] = [
 //        QuizQuestions(image: "The Godfather",

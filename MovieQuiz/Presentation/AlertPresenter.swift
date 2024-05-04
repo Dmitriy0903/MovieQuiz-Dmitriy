@@ -4,7 +4,6 @@
 //
 //  Created by movavi_school on 17.02.2024.
 
-
 import UIKit
 
 class AlertPresenter: AlertPresenterProtocol {
@@ -24,8 +23,6 @@ class AlertPresenter: AlertPresenterProtocol {
         alert.addAction(action)
         delegate?.present(alert, animated: true)
     }
-    
-    
 }
 
 

@@ -10,4 +10,3 @@ import Foundation
 protocol AlertPresenterProtocol {
     func showResult(model: AlertModel)
 }
-

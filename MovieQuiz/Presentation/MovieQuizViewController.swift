@@ -5,7 +5,6 @@ import Foundation
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
 // MARK: - Outlets
-    
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var movieImage: UIImageView!
     @IBOutlet private weak var movieQuestions: UILabel!
@@ -14,34 +13,26 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet weak var noButton: UIButton!
     
 // MARK: - Actions
-    
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         enabledButtons(isEnabled: false)
-        presenter.currentQuestion = currentQuestion
         presenter.noButtonClicked()
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         enabledButtons(isEnabled: false)
-        presenter.currentQuestion = currentQuestion
         presenter.yesButtonClicked()
     }
     
 // MARK: - Variables
-    
-    private var questionsIndex: Int = 0
-    
     private var presenter = MovieQuizPresenter()
-    private var questionsFactory: QuestionFactoryProtocol?
-    private var currentQuestion: QuizQuestions?
+    var questionsFactory: QuestionFactoryProtocol?
     private var alertPresenter: AlertPresenterProtocol?
-    
     private var statisticService: StatisticServiceProtocol!
     
 // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         questionsFactory = QuestionFactory(delegate: self, movieLoader: MovieLoader())
         alertPresenter = AlertPresenter(delegate: self)
         statisticService = StatisticService()
@@ -52,17 +43,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
 // MARK: - Methods
-    
-    func didReceiveNextQuestion(question: QuizQuestions?) {
-        guard let question = question else { return }
-
-        currentQuestion = question
-        let viewModel = presenter.convert(model: question)
-        DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)
-        }
-    }
-    
     func didLoadDataFromServer() {
         activityIndicator.isHidden = true
         questionsFactory?.requestNextQuestions()
@@ -77,18 +57,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionsFactory?.requestNextQuestions()
     }
     
-    private func show(quiz step: QuizStepViewModel) {
+    func show(quiz step: QuizStepViewModel) {
         movieImage.image = step.image
         movieQuestions.text = step.questions
         movieCount.text = step.questionNumber
     }
     
-    private func enabledButtons(isEnabled: Bool) {
+    func enabledButtons(isEnabled: Bool) {
         noButton.isEnabled = isEnabled
         yesButton.isEnabled = isEnabled
     }
-    
-    
     
     func showAnswerResult(isCorrect: Bool) {
         movieImage.layer.masksToBounds = true
@@ -98,9 +76,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self else { return }
-            
             movieImage.layer.borderWidth = 0
-            showNextQuestionsOrResult()
+            
+            self.presenter.statisticService = self.statisticService
+            self.presenter.questionsFactory = self.questionsFactory
+            self.presenter.showNextQuestionsOrResult()
         }
     }
     
@@ -125,23 +105,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
     }
-    
-    private func showNextQuestionsOrResult() {
-        if presenter.isLastQuestion() {
-            statisticService.store(correct: presenter.correctAnswers, total: presenter.questionAmount)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.getAlertResult()
-            }
-        } else {
-            presenter.switchToNextQuestion()
-            questionsFactory?.requestNextQuestions()
-            enabledButtons(isEnabled: true)
-            }
-        }
+    func didReceiveNextQuestion(question: QuizQuestions?) {
     }
+}
 
-// MARK: - Extension
-
+// MARK: - Extensios
 extension MovieQuizViewController: AlertPresenterDelegate {
     
     func getAlertResult() {
@@ -156,7 +124,7 @@ extension MovieQuizViewController: AlertPresenterDelegate {
                                                 message: text,
                                                 buttonText: "Сыграть ещё раз!") {
             self.presenter.resetQuestionIndex()
-            self.showNextQuestionsOrResult()
+            self.presenter.showNextQuestionsOrResult()
         }
         alertPresenter?.showResult(model: alertModel)
     }

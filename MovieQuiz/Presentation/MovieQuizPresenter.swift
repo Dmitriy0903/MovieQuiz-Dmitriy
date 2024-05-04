@@ -11,6 +11,8 @@ import Foundation
 final class MovieQuizPresenter {
     //MARK: - Variables
     weak var viewController: MovieQuizViewController?
+    var questionsFactory: QuestionFactoryProtocol?
+    var statisticService: StatisticServiceProtocol!
     var currentQuestion: QuizQuestions?
     
     var questionsIndex: Int = 0
@@ -19,21 +21,17 @@ final class MovieQuizPresenter {
     
     //MARK: - Methods
     func noButtonClicked() {
-        let isAnswerCorrect = checkAnswer(yesOrNo: false)
-        viewController?.showAnswerResult(isCorrect: isAnswerCorrect)
+        didAnswer(yesOrNo: false)
     }
     
     func yesButtonClicked() {
-        let isAnswerCorrect = checkAnswer(yesOrNo: true)
-        viewController?.showAnswerResult(isCorrect: isAnswerCorrect)
+        didAnswer(yesOrNo: true)
     }
     
-    func checkAnswer(yesOrNo: Bool) -> Bool {
-        guard let currentQuestion else { return true }
-        if yesOrNo == currentQuestion.correctAnswer {
-            correctAnswers += 1
-        }
-        return yesOrNo == currentQuestion.correctAnswer
+    func didAnswer(yesOrNo: Bool) {
+        guard let currentQuestion else { return }
+        let givenAnswer = yesOrNo
+        viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
     func convert(model: QuizQuestions) -> QuizStepViewModel {
@@ -41,6 +39,32 @@ final class MovieQuizPresenter {
                           questions: model.text,
                           questionNumber: String(questionsIndex + 1) + "/10")
     }
+    
+    func didReceiveNextQuestion(question: QuizQuestions?) {
+        guard let question = question else { return }
+        
+        currentQuestion = question
+        let viewModel = convert(model: question)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.viewController?.show(quiz: viewModel)
+        }
+    }
+    
+    func showNextQuestionsOrResult() {
+        if isLastQuestion() {
+            statisticService.store(correct: self.correctAnswers, total: self.questionAmount)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let self else { return }
+                self.viewController?.getAlertResult()
+            }
+        } else {
+            self.switchToNextQuestion()
+            questionsFactory?.requestNextQuestions()
+            viewController?.enabledButtons(isEnabled: true)
+            }
+        }
+    
     func isLastQuestion() -> Bool {
         questionsIndex == (questionAmount - 1)
     }
