@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WN3-CV-BSG">
     <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -17,6 +17,72 @@
         </array>
     </customFonts>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="KiR-mc-dOl">
+            <objects>
+                <viewController id="1zZ-j8-oJX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yFc-Hx-8RG">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="pbM-XG-pOi">
+                                <rect key="frame" x="60" y="368.66666666666669" width="273" height="140"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGb-2H-0DD">
+                                        <rect key="frame" x="0.0" y="0.0" width="273" height="50"/>
+                                        <color key="backgroundColor" name="ypWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ken-IT-kph"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <color key="tintColor" name="ypBlack"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Начать игру"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="qvY-Rf-UnP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9jE-Gk-ABw">
+                                        <rect key="frame" x="0.0" y="90" width="273" height="50"/>
+                                        <color key="backgroundColor" name="ypWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="lcc-1M-Mch"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <color key="tintColor" name="ypBlack"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Рекорд"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="aE7-7m-Aao" kind="showDetail" id="vys-40-Wdv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oXm-po-sc3"/>
+                        <color key="backgroundColor" name="ypBlack"/>
+                        <constraints>
+                            <constraint firstItem="oXm-po-sc3" firstAttribute="trailing" secondItem="pbM-XG-pOi" secondAttribute="trailing" constant="60" id="2Bm-MK-Z2w"/>
+                            <constraint firstItem="pbM-XG-pOi" firstAttribute="centerY" secondItem="oXm-po-sc3" secondAttribute="centerY" id="7B8-KJ-CIw"/>
+                            <constraint firstItem="pbM-XG-pOi" firstAttribute="leading" secondItem="oXm-po-sc3" secondAttribute="leading" constant="60" id="d3R-8F-xWr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pbL-NA-g29"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="et7-3V-fQq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="55"/>
+        </scene>
         <!--Movie Quiz View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -57,7 +123,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfK-B3-D6u">
                                         <rect key="frame" x="0.0" y="593.66666666666663" width="353" height="75.333333333333371"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Zs-Ms-Huq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Готовим вопрос..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Zs-Ms-Huq">
                                                 <rect key="frame" x="20" y="5" width="313" height="65.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
                                                 <color key="textColor" name="ypWhite"/>
@@ -142,6 +208,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Mdp-zD-ZKg" secondAttribute="bottom" id="gos-MM-fl2"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="tVi-KG-jzF"/>
                     <connections>
                         <outlet property="activityIndicator" destination="uDh-j3-aVo" id="JRB-GO-eI8"/>
                         <outlet property="movieCount" destination="T0m-Fm-oNt" id="xbn-9F-CPJ"/>
@@ -153,7 +220,62 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-55.725190839694655" y="54.929577464788736"/>
+            <point key="canvasLocation" x="870.99236641221376" y="54.929577464788736"/>
+        </scene>
+        <!--Records View Controller-->
+        <scene sceneID="rPV-J2-o5T">
+            <objects>
+                <viewController id="aE7-7m-Aao" customClass="RecordsViewController" customModule="MovieQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b7P-Q1-3Hl">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Результат" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IpC-5N-zBA">
+                                <rect key="frame" x="60" y="409.33333333333331" width="273" height="23.333333333333314"/>
+                                <color key="backgroundColor" name="ypBlack"/>
+                                <color key="tintColor" name="ypBlack"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" name="ypWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="m2V-uS-Kkg"/>
+                        <color key="backgroundColor" name="ypBlack"/>
+                        <constraints>
+                            <constraint firstItem="IpC-5N-zBA" firstAttribute="centerY" secondItem="m2V-uS-Kkg" secondAttribute="centerY" id="8gk-Jb-vsQ"/>
+                            <constraint firstItem="m2V-uS-Kkg" firstAttribute="trailing" secondItem="IpC-5N-zBA" secondAttribute="trailing" constant="60" id="EIZ-wj-XpA"/>
+                            <constraint firstItem="IpC-5N-zBA" firstAttribute="leading" secondItem="m2V-uS-Kkg" secondAttribute="leading" constant="60" id="dVJ-eH-pqH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="recordsLabel" destination="IpC-5N-zBA" id="s3d-aW-15D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iSo-YD-AJT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="162.59541984732823" y="775.35211267605632"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mDg-cR-Mrj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="WN3-CV-BSG" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wAP-mg-KfV">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1zZ-j8-oJX" kind="relationship" relationship="rootViewController" id="K1g-bS-uSp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3YW-ae-ZVt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-677" y="55"/>
         </scene>
     </scenes>
     <resources>
