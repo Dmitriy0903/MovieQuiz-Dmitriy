@@ -79,14 +79,14 @@ final class MovieQuizPresenter {
         }
     }
     
-    private func CheckAnswer(isCorrect: Bool) {
+    private func checkAnswer(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }
     }
     
     private func showAnswerResult(isCorrect: Bool) {
-        CheckAnswer(isCorrect: isCorrect)
+        checkAnswer(isCorrect: isCorrect)
         viewController?.highlightImageBorder(isCorrect: isCorrect)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
@@ -114,6 +114,7 @@ final class MovieQuizPresenter {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
                 guard let self else { return }
                 self.viewController?.getAlertResult()
+                viewController?.enabledButtons(isEnabled: true)
             }
         } else {
             self.switchToNextQuestion()
