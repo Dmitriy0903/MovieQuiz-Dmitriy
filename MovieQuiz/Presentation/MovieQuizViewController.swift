@@ -17,12 +17,20 @@ final class MovieQuizViewController: UIViewController {
         presenter.noButtonClicked()
     }
     
+    @IBAction func InfoButtonPress(_ sender: Any) {
+        getInfo()
+    }
+    
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         enabledButtons(isEnabled: false)
         presenter.yesButtonClicked()
     }
     
-// MARK: - Variables
+    @IBAction func BackButtonPressed(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - Variables
     private var presenter: MovieQuizPresenter!
     private var alertPresenter: AlertPresenterProtocol?
     

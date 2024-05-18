@@ -9,13 +9,22 @@ import Foundation
 
 class QuestionFactory: QuestionFactoryProtocol {
     
+    
+    
+    
+    
     private weak var delegate: QuestionFactoryDelegate?
     private var movieLoader: MovieLoaderProtocol
     private var movies: [MostPopularMovie] = []
+    private var currentMovie: MostPopularMovie?
     
     init(delegate: QuestionFactoryDelegate?, movieLoader: MovieLoaderProtocol) {
         self.delegate = delegate
         self.movieLoader = movieLoader
+    }
+    
+    func getMovie() -> MostPopularMovie? {
+        return currentMovie
     }
     
     func requestNextQuestions() {

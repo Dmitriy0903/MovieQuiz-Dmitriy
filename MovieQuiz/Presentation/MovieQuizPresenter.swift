@@ -35,6 +35,34 @@ final class MovieQuizPresenter {
     }
     
     //MARK: - Methods
+    func getInfo() {
+        
+        let movie = QuestionFactory.getMovie()
+        
+        let text =
+"""
+Фильм называется: \(movie.)
+Год выпуска: \(movie.year)
+
+"""
+        let title = "Заинтересовал фильм?"
+        let buttonText = "Посмотрим трейлер"
+        
+        
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: buttonText, style: .default) { _ in
+            var urlString = "https://tv-api.com/en/API/Trailer/k_12345678" + // айди фильма
+            if let url = URL(string: urlString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        
+        
+        
+        alert.addAction(action)
+        viewController?.present(alert, animated: true)
+    }
+    
     func getResultMessage() -> String {
         let text = """
 Ваш результат: \(correctAnswers)/\(questionAmount)
@@ -105,7 +133,7 @@ final class MovieQuizPresenter {
     private func convert(model: QuizQuestions) -> QuizStepViewModel {
         QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
                           questions: model.text,
-                          questionNumber: String(questionsIndex + 1) + "/10")
+                          questionNumber: "Вопрос " + String(questionsIndex + 1) + "/10")
     }
     
     private func showNextQuestionsOrResult() {

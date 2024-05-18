@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -94,17 +95,24 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Mdp-zD-ZKg">
                                 <rect key="frame" x="20" y="69" width="353" height="749"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="224" translatesAutoresizingMaskIntoConstraints="NO" id="k96-LA-86s" userLabel="questions stack">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="k96-LA-86s" userLabel="questions stack">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="24"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Вопрос:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhJ-Z9-enh">
-                                                <rect key="frame" x="0.0" y="0.0" width="88.666666666666671" height="24"/>
-                                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
-                                                <color key="textColor" name="ypWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0m-Fm-oNt">
-                                                <rect key="frame" x="312.66666666666669" y="0.0" width="40.333333333333314" height="24"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ras-Cc-gm9">
+                                                <rect key="frame" x="0.0" y="0.0" width="12.666666666666666" height="24"/>
+                                                <color key="backgroundColor" name="ypBlack"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="21"/>
+                                                <color key="tintColor" name="ypWhite"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="chevron.left" catalog="system">
+                                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="BackButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rXS-y5-7sy"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вопрос 1/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0m-Fm-oNt">
+                                                <rect key="frame" x="237" y="0.0" width="116" height="24"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" name="ypWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -114,12 +122,43 @@
                                             <constraint firstAttribute="height" constant="24" id="H5O-UO-hlv"/>
                                         </constraints>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dex-ny-4YV">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="es3-yR-uTh">
                                         <rect key="frame" x="0.0" y="44" width="353" height="529.66666666666663"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dex-ny-4YV">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="529.66666666666663"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Dex-ny-4YV" secondAttribute="height" multiplier="2:3" id="mo0-c1-zaZ"/>
+                                                </constraints>
+                                            </imageView>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="uDh-j3-aVo">
+                                                <rect key="frame" x="166" y="341" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </activityIndicatorView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGa-E5-52O">
+                                                <rect key="frame" x="0.0" y="494" width="50" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="bdA-uq-HYm"/>
+                                                    <constraint firstAttribute="width" constant="50" id="kWm-2x-mem"/>
+                                                </constraints>
+                                                <color key="tintColor" name="ypWhite"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="info.circle.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="InfoButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qru-L4-Ver"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Dex-ny-4YV" secondAttribute="height" multiplier="2:3" id="mo0-c1-zaZ"/>
+                                            <constraint firstItem="HGa-E5-52O" firstAttribute="leading" secondItem="es3-yR-uTh" secondAttribute="leading" id="3oB-M1-dAi"/>
+                                            <constraint firstItem="Dex-ny-4YV" firstAttribute="top" secondItem="es3-yR-uTh" secondAttribute="top" id="9EY-QA-uzk"/>
+                                            <constraint firstAttribute="bottom" secondItem="Dex-ny-4YV" secondAttribute="bottom" id="LF1-4y-c1T"/>
+                                            <constraint firstItem="Dex-ny-4YV" firstAttribute="leading" secondItem="es3-yR-uTh" secondAttribute="leading" id="PdC-Wc-6og"/>
+                                            <constraint firstAttribute="width" secondItem="es3-yR-uTh" secondAttribute="height" multiplier="2:3" id="PiD-Az-Uwr"/>
+                                            <constraint firstAttribute="bottom" secondItem="HGa-E5-52O" secondAttribute="bottom" constant="0.66666666666662877" id="RVN-jc-TC1"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dex-ny-4YV" secondAttribute="trailing" id="nLf-uu-ftf"/>
                                         </constraints>
-                                    </imageView>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfK-B3-D6u">
                                         <rect key="frame" x="0.0" y="593.66666666666663" width="353" height="75.333333333333371"/>
                                         <subviews>
@@ -185,24 +224,15 @@
                                     <constraint firstAttribute="trailing" secondItem="k96-LA-86s" secondAttribute="trailing" id="1Wr-Ud-IDZ"/>
                                     <constraint firstAttribute="trailing" secondItem="dfK-B3-D6u" secondAttribute="trailing" id="TXa-rK-5aE"/>
                                     <constraint firstItem="dfK-B3-D6u" firstAttribute="leading" secondItem="Mdp-zD-ZKg" secondAttribute="leading" id="UGW-qw-Qad"/>
-                                    <constraint firstItem="Dex-ny-4YV" firstAttribute="leading" secondItem="Mdp-zD-ZKg" secondAttribute="leading" id="Ygy-aF-u2I"/>
                                     <constraint firstItem="QXM-JM-GVR" firstAttribute="leading" secondItem="Mdp-zD-ZKg" secondAttribute="leading" id="doR-xS-mgQ"/>
-                                    <constraint firstItem="Dex-ny-4YV" firstAttribute="leading" secondItem="Mdp-zD-ZKg" secondAttribute="leading" id="f8k-u2-BXt"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dex-ny-4YV" secondAttribute="trailing" id="qNN-vc-HvH"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dex-ny-4YV" secondAttribute="trailing" id="qtq-PT-61F"/>
                                     <constraint firstAttribute="trailing" secondItem="QXM-JM-GVR" secondAttribute="trailing" id="s9V-lO-12n"/>
                                 </constraints>
                             </stackView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="uDh-j3-aVo">
-                                <rect key="frame" x="186.66666666666666" y="428.66666666666669" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="ypBlack"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Mdp-zD-ZKg" secondAttribute="trailing" constant="20" id="2Vi-3b-dhb"/>
-                            <constraint firstItem="uDh-j3-aVo" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="I4z-fw-FAG"/>
-                            <constraint firstItem="uDh-j3-aVo" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="LL5-Wk-eR7"/>
                             <constraint firstItem="Mdp-zD-ZKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="WtZ-ZD-SBQ"/>
                             <constraint firstItem="Mdp-zD-ZKg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="YMh-mo-rOM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Mdp-zD-ZKg" secondAttribute="bottom" id="gos-MM-fl2"/>
@@ -220,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="870.99236641221376" y="54.929577464788736"/>
+            <point key="canvasLocation" x="979" y="55"/>
         </scene>
         <!--Records View Controller-->
         <scene sceneID="rPV-J2-o5T">
@@ -279,6 +309,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="ypBlack">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
